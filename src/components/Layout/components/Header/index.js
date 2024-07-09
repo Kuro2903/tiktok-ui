@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faSignIn } from '@fortawesome/free-solid-svg-icons';
+import { faSignIn } from '@fortawesome/free-solid-svg-icons';
 import {
     InboxIcon,
     MessageIcon,
-    SearchIcon,
     ProfileIcon,
     CoinIcon,
     SettingsIcon,
@@ -21,16 +19,15 @@ import {
     MoreIcon,
 } from '~/components/Icons';
 
-import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import Button from '~/components/Button';
-import { wrapper as PopperWrapper } from '~/components/Popper';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import AccountsItem from '~/components/AccountItem';
 import Menu from '~/components/Popper/Menu';
+import Image from '~/components/Image';
+import Search from '../Search';
 
 const cx = classNames.bind(styles);
 const MENU_ITEMS = [
@@ -103,15 +100,8 @@ const MENU_ITEMS = [
     },
 ];
 function Header() {
-    const [searchResults, setsearchResults] = useState([]);
-
     const currentUser = true;
 
-    useEffect(() => {
-        setTimeout(() => {
-            setsearchResults([1, 2, 3]); //thay [1,2,3] = [] để làm logic
-        }, []);
-    });
     //handle logic
     const handleMenuChange = (menuItem) => {
         switch (menuItem.type) {
@@ -163,31 +153,9 @@ function Header() {
                 <div className={cx('logo')}>
                     <img src={images.logo} alt="logo" />
                 </div>
-                <HeadlessTippy
-                    interactive
-                    visible={searchResults.length > 0}
-                    render={(attrs) => (
-                        <div className={cx('search-results')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cx('search-title')}>Accounts</h4>
-                                <AccountsItem />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cx('search')}>
-                        <input placeholder="search for anything" spellCheck="false" />
-                        <button className={cx('clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-
-                        <button className={cx('search-btn')}>
-                            <SearchIcon />
-                        </button>
-                    </div>
-                </HeadlessTippy>
-
+                {/* search zone */}
+                <Search />
+                {/* action and menu zone */}
                 <div className={cx('action')}>
                     {currentUser ? (
                         <>
@@ -200,8 +168,10 @@ function Header() {
                                 </button>
                             </Tippy>
                             <Tippy delay={[0, 100]} content="Notice" placement="bottom">
+                                {/* có thể  thêm 'relative' cạnh action-btn bằng tailwind*/}
                                 <button className={cx('action-btn')}>
                                     <InboxIcon />
+                                    <span className={cx('badge')}>99+</span>
                                 </button>
                             </Tippy>
                         </>
@@ -217,7 +187,7 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cx('user-avatar')}
                                 src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-1/338479225_1935339326810050_5136619892256188683_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=kb0PlhSBPNsQ7kNvgF1xNRn&_nc_ht=scontent.fhan14-1.fna&oh=00_AYA_PGdPneKKQlAheMxtFRxvAbDxph3Ynx1J87pwZwcYuA&oe=6682C39A"
                                 alt="Recon VuVer"
