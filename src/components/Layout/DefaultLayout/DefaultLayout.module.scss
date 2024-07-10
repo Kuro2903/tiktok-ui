@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -7,20 +7,18 @@
     display: flex;
     flex-direction: column;
     -webkit-box-align: stretch;
-    align-items: stretch; 
+    align-items: stretch;
     min-height: 100%;
-    
-    
 }
-.container{
+.container {
+    margin-top: var(--default-layout-header-height);
     width: 100%;
     padding: 20px 0px 26px 8px;
     display: flex;
     padding-right: 24px;
     padding-left: 16px;
 }
-.content{
+.content {
     flex: 1;
     text-align: center;
 }
-

@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignIn } from '@fortawesome/free-solid-svg-icons';
+import Tippy from '@tippyjs/react';
+import { Link } from 'react-router-dom';
 import {
     InboxIcon,
     MessageIcon,
@@ -19,9 +21,9 @@ import {
     MoreIcon,
 } from '~/components/Icons';
 
-import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
+import routesConfig from '~/config/routes';
 import Button from '~/components/Button';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
@@ -150,9 +152,10 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <div className={cx('logo')}>
-                    <img src={images.logo} alt="logo" />
-                </div>
+                <Link to={routesConfig.home} className={cx('logo-link')}>
+                    <img src={images.logo} alt="Tiktok" />
+                </Link>
+
                 {/* search zone */}
                 <Search />
                 {/* action and menu zone */}
@@ -187,11 +190,7 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <Image
-                                className={cx('user-avatar')}
-                                src="https://scontent.fhan14-1.fna.fbcdn.net/v/t39.30808-1/338479225_1935339326810050_5136619892256188683_n.jpg?stp=cp0_dst-jpg_p40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_ohc=kb0PlhSBPNsQ7kNvgF1xNRn&_nc_ht=scontent.fhan14-1.fna&oh=00_AYA_PGdPneKKQlAheMxtFRxvAbDxph3Ynx1J87pwZwcYuA&oe=6682C39A"
-                                alt="Recon VuVer"
-                            />
+                            <Image className={cx('user-avatar')} src="ava.jpg" alt="Recon VuVer" />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <MoreIcon />
