@@ -162,7 +162,7 @@ function Header() {
                 <div className={cx('action')}>
                     {currentUser ? (
                         <>
-                            <Button upload leftIcon={<PlusIcon />}>
+                            <Button upload leftIcon={<PlusIcon />} to={config.routes.upload}>
                                 Upload
                             </Button>
                             <Tippy delay={[0, 100]} content="Send Messenger" placement="bottom">
@@ -177,12 +177,10 @@ function Header() {
                                     <span className={cx('badge')}>99+</span>
                                 </button>
                             </Tippy>
+                            {/* <Button leftIcon={<CoinIcon />}>Get Coin</Button> */}
                         </>
                     ) : (
                         <>
-                            <Button upload leftIcon={<PlusIcon />}>
-                                Upload
-                            </Button>
                             <Button primary rightIcon={<FontAwesomeIcon icon={faSignIn} />}>
                                 login
                             </Button>
@@ -190,7 +188,12 @@ function Header() {
                     )}
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <Image className={cx('user-avatar')} src="ava.jpg" alt="Recon VuVer" />
+                            ((
+                                <Button upload leftIcon={<PlusIcon />}>
+                                    Upload
+                                </Button>
+                            ),
+                            (<Image className={cx('user-avatar')} src="ava.jpg" alt="Recon VuVer" />))
                         ) : (
                             <button className={cx('more-btn')}>
                                 <MoreIcon />

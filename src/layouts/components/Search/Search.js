@@ -15,40 +15,40 @@ const cx = classNames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
-    const [searchResults, setsearchResults] = useState([]);
-    const [showResult, setshowResult] = useState(true);
+    const [searchResults, setSearchResults] = useState([]);
+    const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
 
     useEffect(() => {
-        if (!debounced) {
-            setsearchResults([]);
+        if (!debouncedValue) {
+            setSearchResults([]);
             return;
         }
 
         const fetchAPI = async () => {
             setLoading(true);
 
-            const result = await searchService.search(debounced);
-            setsearchResults(result);
+            const result = await searchService.search(debouncedValue);
+            setSearchResults(result);
 
             setLoading(false);
         };
 
         fetchAPI();
-    }, [debounced]);
+    }, [debouncedValue]);
 
     const handleClear = () => {
         setSearchValue('');
-        setsearchResults([]);
+        setSearchResults([]);
         inputRef.current.focus();
     };
 
     const handleHideResult = () => {
-        setshowResult(false);
+        setShowResult(false);
     };
 
     return (
@@ -76,7 +76,7 @@ function Search() {
                         placeholder="Search for anything"
                         spellCheck={false}
                         onChange={(e) => setSearchValue(e.target.value.trimStart())}
-                        onFocus={() => setshowResult(true)}
+                        onFocus={() => setShowResult(true)}
                     />
                     {!!searchValue && !loading && (
                         <button className={cx('clear')} onClick={handleClear}>
