@@ -15,6 +15,7 @@ import {
 } from '~/components/Icons';
 import Menu, { MenuItem } from './Menu';
 import Image from '~/components/Image';
+import SuggestedAccounts from '~/components/SuggestedAccounts/SuggestedAccounts';
 const cx = classNames.bind(styles);
 function Sidebar() {
     return (
@@ -46,6 +47,8 @@ function Sidebar() {
                     icon={<Image className={cx('user-avatar')} src="ava.jpg" alt="Recon VuVer" />}
                 />
             </Menu>
+            <SuggestedAccounts label="Suggested accounts" />
+            <SuggestedAccounts label="Following accounts" />
         </aside>
     );
 }

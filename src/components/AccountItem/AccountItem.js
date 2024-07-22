@@ -13,7 +13,7 @@ function AccountsItem({ data }) {
     return (
         <Link to={`/@${data.nickname}`} className={cx('wrapper')}>
             <img className={cx('avatar')} src={data.avatar} alt={data.full_name} />
-            <div className={cx('infor')}>
+            <div className={cx('info')}>
                 <h4 className={cx('name')}>
                     <span>{data.full_name}</span>
                     {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
